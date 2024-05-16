@@ -122,8 +122,16 @@ const playerSvg = document.getElementById('player');
 const item1click = document.getElementById('item1svg');
         
 item1click.addEventListener('click', () => {
-            item1svg.style.fill = 'red';
-        });
+    const playerCircle = document.getElementById('player');
+    const item1Circle = document.getElementById('item1');
+
+    const dx = parseFloat(playerCircle.getAttribute('cx')) - parseFloat(item1Circle.getAttribute('cx'));
+    const dy = parseFloat(playerCircle.getAttribute('cy')) - parseFloat(item1Circle.getAttribute('cy'));
+
+    if (Math.sqrt(dx ** 2 + dy ** 2) < parseFloat(playerCircle.getAttribute('r')) + parseFloat(item1Circle.getAttribute('r'))) {
+        item1svg.style.fill = 'red';
+    }
+});
 
 function TeleportPlayer() {
         const content = document.querySelector('.content');
