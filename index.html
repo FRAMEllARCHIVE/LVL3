@@ -117,15 +117,12 @@
 <script>
 window.addEventListener('load', function() {
 const playerSvg = document.getElementById('player');
-
+const item1Circle = document.getElementById('item1');
 const item1click = document.getElementById('item1svg');
         
 item1click.addEventListener('click', () => {
-    const playerCircle = document.getElementById('player');
-    const item1Circle = document.getElementById('item1');
-
-    const playerStyle = window.getComputedStyle(playerCircle);
-    const item1Style = window.getComputedStyle(item1Circle);
+    const playerStyle = playerSvg.style;
+    const item1Style = item1Circle.style;
 
     const playerCenterX = parseFloat(playerStyle.left);
     const playerCenterY = parseFloat(playerStyle.top);
@@ -133,7 +130,7 @@ item1click.addEventListener('click', () => {
     const item1CenterX = parseFloat(item1Style.left);
     const item1CenterY = parseFloat(item1Style.top);
 
-    const distanceThreshold = 111; // Adjust this value as needed
+    const distanceThreshold = 111;
 
     const distance = Math.sqrt(Math.pow(playerCenterX - item1CenterX, 2) + Math.pow(playerCenterY - item1CenterY, 2));
 
