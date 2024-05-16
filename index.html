@@ -124,11 +124,14 @@ item1click.addEventListener('click', () => {
     const playerCircle = document.getElementById('player');
     const item1Circle = document.getElementById('item1');
 
-    const playerCenterX = parseFloat(playerCircle.style.left);
-    const playerCenterY = parseFloat(playerCircle.style.top);
+    const playerStyle = window.getComputedStyle(playerCircle);
+    const item1Style = window.getComputedStyle(item1Circle);
 
-    const item1CenterX = parseFloat(item1Circle.style.left);
-    const item1CenterY = parseFloat(item1Circle.style.top);
+    const playerCenterX = parseFloat(playerStyle.left);
+    const playerCenterY = parseFloat(playerStyle.top);
+
+    const item1CenterX = parseFloat(item1Style.left);
+    const item1CenterY = parseFloat(item1Style.top);
 
     const distanceThreshold = 50; // Adjust this value as needed
 
@@ -140,6 +143,7 @@ item1click.addEventListener('click', () => {
         item1Circle.style.fill = 'yellow';
     }
 });
+
 
 function TeleportPlayer() {
         const content = document.querySelector('.content');
