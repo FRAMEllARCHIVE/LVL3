@@ -46,6 +46,7 @@
         }
 
         #player {
+            display: none;
             width: 4px;
             height: 4px;
             left:0%; 
@@ -149,19 +150,20 @@ function item1clicked() {
     ) {
         item1Svg.style.display = 'none';
         window.parent.postMessage('ITEM1', '*');
-        window.parent.postMessage('PLUSLIFE', '*');
+        window.parent.postMessage('LOSELIFE', '*');
     }
 }
 
-function teleportPlayerToCenterOfContent() {
+function TeleportPlayer() {
         const content = document.querySelector('.content');
         const centerX = content.clientWidth * 0.33;
         const centerY = content.clientHeight * 0.95;
         playerSvg.style.left = (centerX - playerSvg.clientWidth / 2) + 'px';
         playerSvg.style.top = (centerY - playerSvg.clientHeight / 2) + 'px';
+        playerSvg.style.display = 'block';
     }
 
-    teleportPlayerToCenterOfContent();
+    TeleportPlayer();
 
 
 window.addEventListener('devicemotion', function (event) {
@@ -171,7 +173,6 @@ window.addEventListener('devicemotion', function (event) {
 function movePlayer(velocityX, velocityY) {
         velocityX *= 0.1;
         velocityY *= 0.1;
-        const playerSvg = document.getElementById('player');
 
         let playerX = parseFloat(playerSvg.style.left.replace('px', ''));
         let playerY = parseFloat(playerSvg.style.top.replace('px', ''));
