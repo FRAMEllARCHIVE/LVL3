@@ -124,13 +124,11 @@ item1click.addEventListener('click', () => {
     const playerCircle = document.getElementById('player');
     const item1Circle = document.getElementById('item1');
 
-    const playerRect = playerCircle.getBoundingClientRect();
-    const playerCenterX = playerRect.left + playerRect.width / 2;
-    const playerCenterY = playerRect.top + playerRect.height / 2;
+    const playerCenterX = parseFloat(playerCircle.style.left);
+    const playerCenterY = parseFloat(playerCircle.style.top);
 
-    const item1Rect = item1Circle.getBoundingClientRect();
-    const item1CenterX = item1Rect.left + item1Rect.width / 2;
-    const item1CenterY = item1Rect.top + item1Rect.height / 2;
+    const item1CenterX = parseFloat(item1Circle.style.left);
+    const item1CenterY = parseFloat(item1Circle.style.top);
 
     const distanceThreshold = 50; // Adjust this value as needed
 
