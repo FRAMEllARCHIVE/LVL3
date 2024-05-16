@@ -115,7 +115,7 @@
  </div>
 
 <script>
-
+window.addEventListener('load', function() {
 const playerSvg = document.getElementById('player');
 
 const item1click = document.getElementById('item1svg');
@@ -242,7 +242,8 @@ function checkNavigationCollision() {
                 window.parent.postMessage('navigateToLVL2', '*');
             }
 }
-
+});
+    
 </script>
 
 </body>
