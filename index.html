@@ -80,12 +80,13 @@
             opacity: 0;
         }
 
-        #navigation3 {
+        #item1 {
+            display: none;
             position: absolute;
             left: 25%;
             top: 24%;
             transform: translate(-50%, -50%);
-            opacity: 0;
+            opacity: 0.5;
         }
 
     </style>
@@ -112,9 +113,9 @@
             <circle cx="25" cy="25" r="30" fill="red"/>
         </svg>
 
-<svg id="navigation3" width="80" height="80" viewBox="0 0 50 50">
-            <circle cx="25" cy="25" r="30" fill="red"/>
-        </svg>
+<svg id="item1" width="80" height="80" viewBox="0 0 50 50" onclick="item1clicked()">
+    <circle cx="25" cy="25" r="30" fill="red"/>
+</svg>
 
  </div>
 
@@ -123,6 +124,34 @@
 window.addEventListener('load', function() {
 
 const playerSvg = document.getElementById('player');
+
+const item1Svg = document.getElementById('item1');
+const lvl3item1 = window.parent.localStorage.getItem('lvl3item1');
+if (lvl3item1 !== 'obtained') {
+    item1Svg.style.display = 'block';
+}
+
+function item1clicked() {
+    const playerSvg = document.getElementById('player');
+    const item1Svg = document.getElementById('item1');
+    const playerCircle = playerSvg.querySelector('circle');
+    const playerRect = playerSvg.getBoundingClientRect();
+    const playerCenterX = playerRect.left + parseFloat(playerCircle.getAttribute('cx'));
+    const playerCenterY = playerRect.top + parseFloat(playerCircle.getAttribute('cy'));
+
+    const item1Rect = item1Svg.getBoundingClientRect();
+
+    if (
+        playerCenterX >= item1Rect.left &&
+        playerCenterX <= item1Rect.right &&
+        playerCenterY >= item1Rect.top &&
+        playerCenterY <= item1Rect.bottom
+    ) {
+        item1Svg.style.display = 'none';
+        window.parent.postMessage('ITEM1', '*');
+        window.parent.postMessage('PLUSLIFE', '*');
+    }
+}
 
 function teleportPlayerToCenterOfContent() {
         const content = document.querySelector('.content');
@@ -196,7 +225,6 @@ function checkNavigationCollision() {
             const playerSvg = document.getElementById('player');
             const navigation2Svg = document.getElementById('navigation2');
             const navigation1Svg = document.getElementById('navigation1');
-            const navigation3Svg = document.getElementById('navigation3');
             const playerCircle = playerSvg.querySelector('circle');
             const playerRect = playerSvg.getBoundingClientRect();
             const playerCenterX = playerRect.left + parseFloat(playerCircle.getAttribute('cx'));
@@ -204,7 +232,6 @@ function checkNavigationCollision() {
 
             const navigation1Rect = navigation1Svg.getBoundingClientRect();
             const navigation2Rect = navigation2Svg.getBoundingClientRect();
-            const navigation3Rect = navigation3Svg.getBoundingClientRect();
 
             if (
                 playerCenterX >= navigation1Rect.left &&
@@ -221,14 +248,6 @@ function checkNavigationCollision() {
                 playerCenterY <= navigation2Rect.bottom
             ) {
                 window.parent.postMessage('navigateToLVL2', '*');
-            }
-            if (
-                playerCenterX >= navigation2Rect.left &&
-                playerCenterX <= navigation2Rect.right &&
-                playerCenterY >= navigation2Rect.top &&
-                playerCenterY <= navigation2Rect.bottom
-            ) {
-                window.parent.postMessage('PLUSLIFE', '*');
             }
         }
 });
