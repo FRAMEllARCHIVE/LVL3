@@ -125,13 +125,19 @@ item1click.addEventListener('click', () => {
     const playerCircle = document.getElementById('player');
     const item1Circle = document.getElementById('item1');
 
-    const dx = parseFloat(playerCircle.getAttribute('cx')) - parseFloat(item1Circle.getAttribute('cx'));
-    const dy = parseFloat(playerCircle.getAttribute('cy')) - parseFloat(item1Circle.getAttribute('cy'));
+    const playerCenterX = parseFloat(playerCircle.getAttribute('cx'));
+    const playerCenterY = parseFloat(playerCircle.getAttribute('cy'));
 
-    if (Math.sqrt(dx ** 2 + dy ** 2) < parseFloat(playerCircle.getAttribute('r')) + parseFloat(item1Circle.getAttribute('r'))) {
+    const item1CenterX = parseFloat(item1Circle.getAttribute('cx'));
+    const item1CenterY = parseFloat(item1Circle.getAttribute('cy'));
+
+    const distance = Math.sqrt(Math.pow(playerCenterX - item1CenterX, 2) + Math.pow(playerCenterY - item1CenterY, 2));
+
+    if (distance < (parseFloat(playerCircle.getAttribute('r')) + parseFloat(item1Circle.getAttribute('r')))) {
         item1svg.style.fill = 'red';
     }
 });
+
 
 function TeleportPlayer() {
         const content = document.querySelector('.content');
