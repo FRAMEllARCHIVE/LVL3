@@ -120,27 +120,30 @@
 
 window.addEventListener('load', function() {
 
-    const playerSvg = document.getElementById('player');
-    const item1click = document.getElementById('item1svg');
-    const item1Circle = document.getElementById('item1');
+const playerSvg = document.getElementById('player');
+const item1click = document.getElementById('item1svg');
+const item1Circle = document.getElementById('item1');
 
-    item1click.addEventListener('click', () => {
-        const playerRect = playerSvg.getBoundingClientRect();
-        const item1Rect = item1click.getBoundingClientRect();
-        const playerCenterX = playerRect.left + playerRect.width / 2;
-        const playerCenterY = playerRect.top + playerRect.height / 2;
-        const isPlayerInsideItem1 = (
-            playerCenterX >= item1Rect.left &&
-            playerCenterX <= item1Rect.right &&
-            playerCenterY >= item1Rect.top &&
-            playerCenterY <= item1Rect.bottom
-        );
-        item1Circle.style.fill = isPlayerInsideItem1 ? 'red' : 'yellow';
+item1click.addEventListener('click', () => {
+    const playerRect = playerSvg.getBoundingClientRect();
+    const item1Rect = item1click.getBoundingClientRect();
+    const playerCenterX = playerRect.left + playerRect.width / 2;
+    const playerCenterY = playerRect.top + playerRect.height / 2;
+    const isPlayerInsideItem1 = (
+        playerCenterX >= item1Rect.left &&
+        playerCenterX <= item1Rect.right &&
+        playerCenterY >= item1Rect.top &&
+        playerCenterY <= item1Rect.bottom
+    );
+
+    item1Circle.style.fill = isPlayerInsideItem1 ? 'red' : 'yellow';
+
+    isPlayerInsideItem1 ?
+        window.parent.postMessage('LIFE1', '*') :
+        window.parent.postMessage('LIFE-1', '*');
 });
 
-
        //window.parent.postMessage('ITEM1', '*');
-       //window.parent.postMessage('LOSELIFE', '*');
 
 function TeleportPlayer() {
         const content = document.querySelector('.content');
