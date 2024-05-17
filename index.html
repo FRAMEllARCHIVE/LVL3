@@ -63,6 +63,21 @@
             opacity: 0;
         }
 
+        #navigation1 {
+            position: absolute;
+            left: 98%;
+            top: 86%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        #navigation2 {
+            position: absolute;
+            left: 2%;
+            top: 94%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
 
         #item1svg {
             left: 19%;
@@ -85,6 +100,14 @@
 <svg id="obstacles" width="100%" height="100%" viewBox="0 0 97.14 97.14">
 </svg>
 
+<svg id="navigation1" width="80" height="150" viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="50" fill="blue"/>
+        </svg>
+
+<svg id="navigation2" width="111" height="111" viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="30" fill="red"/>
+        </svg>
+
     <svg id="item1svg" width="100" height="100">
         <circle id="item1" cx="50" cy="50" r="40"/>
     </svg>
@@ -92,7 +115,7 @@
  </div>
 
 <script>
-
+window.addEventListener('load', function() {
     const playerSvg = document.getElementById('player');
     const item1click = document.getElementById('item1svg');
     const item1Circle = document.getElementById('item1');
@@ -153,6 +176,7 @@ function movePlayer(velocityX, velocityY) {
         playerSvg.style.left = playerX + 'px';
         playerSvg.style.top = playerY + 'px';
 
+        checkNavigationCollision();
     }
 
 function checkCollision() {
@@ -177,6 +201,37 @@ function checkCollision() {
         }
         return false;
     }
+
+function checkNavigationCollision() {
+            const playerSvg = document.getElementById('player');
+            const navigation2Svg = document.getElementById('navigation2');
+            const navigation1Svg = document.getElementById('navigation1');
+            const playerCircle = playerSvg.querySelector('circle');
+            const playerRect = playerSvg.getBoundingClientRect();
+            const playerCenterX = playerRect.left + parseFloat(playerCircle.getAttribute('cx'));
+            const playerCenterY = playerRect.top + parseFloat(playerCircle.getAttribute('cy'));
+
+            const navigation1Rect = navigation1Svg.getBoundingClientRect();
+            const navigation2Rect = navigation2Svg.getBoundingClientRect();
+
+            if (
+                playerCenterX >= navigation1Rect.left &&
+                playerCenterX <= navigation1Rect.right &&
+                playerCenterY >= navigation1Rect.top &&
+                playerCenterY <= navigation1Rect.bottom
+            ) {
+                window.parent.postMessage('navigateToLVL1', '*');
+            }
+            if (
+                playerCenterX >= navigation2Rect.left &&
+                playerCenterX <= navigation2Rect.right &&
+                playerCenterY >= navigation2Rect.top &&
+                playerCenterY <= navigation2Rect.bottom
+            ) {
+                window.parent.postMessage('navigateToLVL2', '*');
+            }
+}
+});
     
 </script>
 
