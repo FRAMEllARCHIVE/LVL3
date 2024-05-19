@@ -138,12 +138,11 @@ circle.setAttribute("r", "40");
 svg.appendChild(circle);
 document.body.appendChild(svg);
 
-if (window.parent.localStorage.getItem('item1') !== 'OBTAINED') {
+if (window.parent.localStorage.getItem('ITEM1') !== 'OBTAINED') {
     svg.style.display = "block";
 }
 
 svg.addEventListener('click', () => {
-    svg.style.display = "none";
     const playerRect = playerSvg.getBoundingClientRect();
     const item1Rect = svg.getBoundingClientRect();
     const playerCenterX = playerRect.left + playerRect.width / 2;
@@ -156,6 +155,7 @@ svg.addEventListener('click', () => {
     );
     window.parent.postMessage('ITEM1', '*');
     window.parent.postMessage(isPlayerInsideItem1 ? 'LIFE1' : 'LIFE-1', '*');
+    svg.style.display = "none";
 });
 
 //position player
