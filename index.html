@@ -125,6 +125,9 @@ svg.style.position = "absolute";
 svg.style.left = "19%";
 svg.style.top = "21%";
 svg.style.fill = "blue";
+svg.style.opacity = "0.2";
+
+svg.style.display = "none";
 
 const circle = document.createElementNS(svgNS, "circle");
 circle.setAttribute("id", "item1");
@@ -133,10 +136,14 @@ circle.setAttribute("cy", "50");
 circle.setAttribute("r", "40");
 
 svg.appendChild(circle);
-
 document.body.appendChild(svg);
 
+if (window.parent.localStorage.getItem('item1') !== 'OBTAINED') {
+    svg.style.display = "block";
+}
+
 svg.addEventListener('click', () => {
+    svg.style.display = "none";
     const playerRect = playerSvg.getBoundingClientRect();
     const item1Rect = svg.getBoundingClientRect();
     const playerCenterX = playerRect.left + playerRect.width / 2;
@@ -147,7 +154,7 @@ svg.addEventListener('click', () => {
         playerCenterY >= item1Rect.top &&
         playerCenterY <= item1Rect.bottom
     );
-    circle.style.fill = isPlayerInsideItem1 ? 'red' : 'yellow';
+    window.parent.postMessage('ITEM1', '*');
     window.parent.postMessage(isPlayerInsideItem1 ? 'LIFE1' : 'LIFE-1', '*');
 });
 
