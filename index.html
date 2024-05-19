@@ -152,6 +152,7 @@ function TeleportPlayer() {
         playerSvg.style.left = (centerX - playerSvg.clientWidth / 2) + 'px';
         playerSvg.style.top = (centerY - playerSvg.clientHeight / 2) + 'px';
         playerSvg.style.display = 'block';
+        window.parent.postMessage('SETLVL3', '*');
     }
 
 TeleportPlayer();
