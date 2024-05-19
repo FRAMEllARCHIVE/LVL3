@@ -80,12 +80,6 @@
             opacity: 0;
         }
 
-        #item1svg {
-            left: 19%;
-            top: 21%;
-            fill: blue;
-        }
-
 </style>
 </head>
 <body>
@@ -110,10 +104,6 @@
             <circle cx="25" cy="25" r="30" fill="red"/>
         </svg>
 
-    <svg id="item1svg" width="100" height="100">
-        <circle id="item1" cx="50" cy="50" r="40"/>
-    </svg>
-
  </div>
 
 <script>
@@ -121,12 +111,34 @@
 window.addEventListener('load', function() {
 
 const playerSvg = document.getElementById('player');
-const item1click = document.getElementById('item1svg');
-const item1Circle = document.getElementById('item1');
 
-item1click.addEventListener('click', () => {
+
+
+//item1
+
+const svgNS = "http://www.w3.org/2000/svg";
+const svg = document.createElementNS(svgNS, "svg");
+svg.setAttribute("id", "item1svg");
+svg.setAttribute("width", "100");
+svg.setAttribute("height", "100");
+svg.style.position = "absolute";
+svg.style.left = "19%";
+svg.style.top = "21%";
+svg.style.fill = "blue";
+
+const circle = document.createElementNS(svgNS, "circle");
+circle.setAttribute("id", "item1");
+circle.setAttribute("cx", "50");
+circle.setAttribute("cy", "50");
+circle.setAttribute("r", "40");
+
+svg.appendChild(circle);
+
+document.body.appendChild(svg);
+
+svg.addEventListener('click', () => {
     const playerRect = playerSvg.getBoundingClientRect();
-    const item1Rect = item1click.getBoundingClientRect();
+    const item1Rect = svg.getBoundingClientRect();
     const playerCenterX = playerRect.left + playerRect.width / 2;
     const playerCenterY = playerRect.top + playerRect.height / 2;
     const isPlayerInsideItem1 = (
@@ -135,15 +147,11 @@ item1click.addEventListener('click', () => {
         playerCenterY >= item1Rect.top &&
         playerCenterY <= item1Rect.bottom
     );
-
-    item1Circle.style.fill = isPlayerInsideItem1 ? 'red' : 'yellow';
-
-    isPlayerInsideItem1 ?
-        window.parent.postMessage('LIFE1', '*') :
-        window.parent.postMessage('LIFE-1', '*');
+    circle.style.fill = isPlayerInsideItem1 ? 'red' : 'yellow';
+    window.parent.postMessage(isPlayerInsideItem1 ? 'LIFE1' : 'LIFE-1', '*');
 });
 
-       //window.parent.postMessage('ITEM1', '*');
+//position player
 
 function TeleportPlayer() {
         const content = document.querySelector('.content');
