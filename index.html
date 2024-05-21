@@ -113,7 +113,7 @@ window.addEventListener('load', function() {
 const playerSvg = document.getElementById('player');
 
 //item1
-
+const contentContainer = document.querySelector('.content');
 const svgNS = "http://www.w3.org/2000/svg";
 const svg = document.createElementNS(svgNS, "svg");
 svg.setAttribute("id", "item1svg");
@@ -133,7 +133,7 @@ circle.setAttribute("cy", "50");
 circle.setAttribute("r", "40");
 
 svg.appendChild(circle);
-document.body.appendChild(svg);
+contentContainer.appendChild(svg);
 
 svg.addEventListener('click', () => {
     const playerRect = playerSvg.getBoundingClientRect();
