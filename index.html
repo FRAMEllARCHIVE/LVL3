@@ -112,8 +112,6 @@ window.addEventListener('load', function() {
 
 const playerSvg = document.getElementById('player');
 
-
-
 //item1
 
 const svgNS = "http://www.w3.org/2000/svg";
@@ -127,7 +125,6 @@ svg.style.top = "21%";
 svg.style.fill = "blue";
 svg.style.opacity = "0.2";
 
-svg.style.display = "none";
 
 const circle = document.createElementNS(svgNS, "circle");
 circle.setAttribute("id", "item1");
@@ -137,10 +134,6 @@ circle.setAttribute("r", "40");
 
 svg.appendChild(circle);
 document.body.appendChild(svg);
-
-if (window.parent.localStorage.getItem('ITEM1') !== 'OBTAINED') {
-    svg.style.display = "block";
-}
 
 svg.addEventListener('click', () => {
     const playerRect = playerSvg.getBoundingClientRect();
@@ -155,7 +148,6 @@ svg.addEventListener('click', () => {
     );
     window.parent.postMessage('ITEM1', '*');
     window.parent.postMessage(isPlayerInsideItem1 ? 'LIFE1' : 'LIFE-1', '*');
-    svg.style.display = "none";
 });
 
 //position player
