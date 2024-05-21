@@ -155,10 +155,7 @@ svg.addEventListener('click', () => {
     );
     window.parent.postMessage('ITEM1', '*');
     window.parent.postMessage(isPlayerInsideItem1 ? 'LIFE1' : 'LIFE-1', '*');
-    svg.style.display = "none";
 });
-
-//position player
 
 function TeleportPlayer() {
         const content = document.querySelector('.content');
